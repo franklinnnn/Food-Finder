@@ -8,9 +8,9 @@ import Search from "./Search"
 
 ReactDOM.render(
     <React.StrictMode>
-        {/* <Header />
-        <ButtonComponentTest /> */}
-        <Search />
+        {/* <Header /> */}
+        <ButtonComponentTest />
+        {/* <Search /> */}
     </React.StrictMode>,
     document.getElementById("root")
 )

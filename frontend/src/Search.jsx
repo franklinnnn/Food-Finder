@@ -33,7 +33,7 @@
 //   return (
 //       <Box sx={{ flexGrow: 1}}>
 //           <AppBar position="static">
-//               <Search>
+//               <SearchBar>
 //                   <SearchIconWrapper>
 //                       <SearchIcon />
 //                   </SearchIconWrapper>
@@ -43,7 +43,7 @@
 //                   <IconButton>
 //                       <MenuIcon />
 //                   </IconButton>
-//               </Search>
+//               </SearchBar>
 
 //           </AppBar>
 //       </Box>
