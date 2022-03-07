@@ -40,18 +40,19 @@ const SearchIconWrapper = styled.div`
 const SearchInput = styled.input`
     padding: 2px;
     width: 100%;
+    height: 100%;
     border: none;
 `
 const FilterIconWrapper = styled.div`
     height: 40px;
-    width: 45px;
+    width: 50px;
     display: flex;
     align-items: center;
     justify-content: center;
     background-color: #fff;
     color: #FFC529;
     border-radius: 10px;
-    box-shadow: 2px 2px 7px 0px #9A9FAE;
+    box-shadow: 2px 2px 5px 0px rgba(154, 159, 174, 0.2);
 `
 
 const ButtonComponentTest = () => {

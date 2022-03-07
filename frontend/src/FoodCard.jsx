@@ -19,11 +19,11 @@ const FoodCard = () => {
         },
     ]
     return (
-        <div>
-            <div className="foodCard__container">
+        <div >
+            <div className="foodCard__container" style={{ position: "relative", paddingTop: "150px", display: "flex", justifyContent: "center", alignItems: "center" }} >
                 {food.map((dish) => (
-                    <TinderCard className="swipe" key={dish.name}>
-                        <Card sx={{ height: "50vh" }}>
+                    <TinderCard className="swipe" key={dish.name} style={{ position: "absolute" }}>
+                        <Card sx={{ maxWidth: "85vw", height: "50vh" }}>
                             <CardMedia
                                 component="img"
                                 image={dish.url}
