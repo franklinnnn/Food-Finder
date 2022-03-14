@@ -7,12 +7,12 @@ import IconButton from "@mui/material/IconButton"
 
 const SearchContainer = styled.div`
     position: absolute;
-    top: 80px;
+    top: 8vh;
     display: flex;
     width: 100%;
     height: 50px;
+    background-color: blue;
 `
-
 const SearchBar = styled.div`
     display: flex;
     align-items: center;
@@ -39,7 +39,7 @@ const SearchInput = styled.input`
     height: 100%;
     border: none;
 `
-const FilterIconWrapper = styled.button`
+const FilterIconWrapper = styled.div`
     height: 40px;
     width: 40px;
     display: flex;
@@ -51,6 +51,9 @@ const FilterIconWrapper = styled.button`
     border: none;
     border-radius: 10px;
     box-shadow: 2px 2px 5px 0px rgba(154, 159, 174, 0.2);
+    &:active {
+        transform: translate(2px, 2px);
+    }
 `
 
 const Search = () => {
