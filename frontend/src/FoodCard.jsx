@@ -1,4 +1,4 @@
-import { Box, Card, CardMedia } from "@mui/material"
+import { Box, Card, CardMedia, Typography } from "@mui/material"
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined"
 import React from "react"
 import TinderCard from "react-tinder-card"
@@ -15,6 +15,34 @@ const FoodCardContainer = styled.div`
 const SwipeCard = styled(TinderCard)`
     position: absolute;
 `
+// const FoodInfoContainer = styled.div`
+//     position: absolute;
+//     bottom: 20;
+//     margin: 10px;
+// `
+
+const FoodName = styled(Typography)`
+    color: #fff;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+`
+const FoodDistance = styled(FoodName)`
+    display: flex;
+    align-items: center;
+    font-weight: 400;
+`
+const FoodPrice = styled(FoodName)`
+    margin-left: 7px;
+    color: #009933;
+`
+
+const onSwipe = (direction) => {
+    console.log("You swiped: " + direction)
+}
+
+const onCardLeftScreen = (myIdentifier) => {
+    console.log(myIdentifier + " swiped")
+}
 
 const FoodCard = () => {
     const food = [
@@ -22,16 +50,19 @@ const FoodCard = () => {
             name: "Pizza",
             url: "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/delish-keto-pizza-073-1544039876.jpg",
             distance: "2 miles away",
+            price: "$",
         },
         {
             name: "Ramen",
             url: "http://cdn.shopify.com/s/files/1/0111/1729/7722/articles/shutterstock_697241275_tonkotsu_ramen-landscape.jpg?v=1562316760",
             distance: "4 miles away",
+            price: "$$",
         },
         {
             name: "Steak",
             url: "https://www.cookingclassy.com/wp-content/uploads/2019/07/steak-marinade-12.jpg",
             distance: "12 miles away",
+            price: "$$$",
         },
     ]
     return (
@@ -48,9 +79,8 @@ const FoodCard = () => {
                     //         />
                     //     </Card>
                     // </TinderCard>
-                <SwipeCard key={dish.name}>
-                    <Card  sx={{ width: "95vw", height: "70vh" }}>
-                        
+                <SwipeCard key={dish.name} onSwipe={onSwipe} onCardLeftScreen={() => onCardLeftScreen('card')}>
+                    <Card  sx={{ width: "95vw", height: "70vh", boxShadow: "2px 2px 20px 0px rgba(154, 159, 174, 1)" }}>
                         <CardMedia
                             component="img"
                             image={dish.url}
@@ -60,8 +90,11 @@ const FoodCard = () => {
                         <div style={{ 
                                 position: "Absolute", bottom: 20, margin: "10px"
                         }}>
-                            <h1 style={{ color: "#fff", textShadow: "2px 2px black" }}>{dish.name}</h1>
-                            <h3 style={{ color: "#fff", textShadow: "2px 2px black" }}><LocationOnOutlinedIcon /> {dish.distance}</h3>
+                            <FoodName variant="h3">{dish.name}</FoodName>
+                            <FoodDistance variant="subtitle1"><LocationOnOutlinedIcon /> {dish.distance}</FoodDistance>
+                            <FoodPrice>{dish.price}</FoodPrice>
+                            {/* <h1 style={{ color: "#fff", textShadow: "2px 2px black" }}>{dish.name}</h1>
+                            <h3 style={{ color: "#fff", textShadow: "2px 2px black" }}><LocationOnOutlinedIcon /> {dish.distance}</h3> */}
                         </div>
                     </Card>
                     
