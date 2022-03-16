@@ -5,7 +5,7 @@ import { Paper, Grid, Box, Typography, IconButton, Button, Avatar } from "@mui/m
 import { History as HistoryIcon, Person as PersonIcon } from "@mui/icons-material"
 
 const StyledAvatar = styled(Avatar)`
-width: 40px;
+    width: 40px;
     height: 40px;    
     border-radius: 10px;
     box-shadow: 5px 5px 20px 0px rgba(154, 159, 174, 0.2);
@@ -31,7 +31,7 @@ const NavButton = styled.div`
 
 const Header = () => {
     return (
-        <Paper square sx={{ position: "fixed", top: 0, left: 0, width: "100%", backgroundColor: "green" }}>
+        <Paper square sx={{ position: "fixed", top: 0, left: 0, width: "100%", height: "7vh", backgroundColor: "green" }}>
             <Grid
                 container
                 spacing={2}

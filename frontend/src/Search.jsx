@@ -7,7 +7,7 @@ import IconButton from "@mui/material/IconButton"
 
 const SearchContainer = styled.div`
     position: absolute;
-    top: 8vh;
+    top: 7vh;
     display: flex;
     width: 100%;
     height: 50px;

@@ -4,12 +4,13 @@ import { Undo, Clear, Favorite, Info } from "@mui/icons-material"
 import IconButton from "@mui/material/IconButton"
 
 const NavigationContainer = styled.div`
-    position: fixed;
+    position: absolute;
     display: flex;
     justify-content: space-evenly;
-    padding: 20px 0px 40px 0px;
+    padding: 10px 0px 40px 0px;
     background-color: cyan;
     width: 100%;
+    height: 5vh;
     bottom: 0;
 `
 

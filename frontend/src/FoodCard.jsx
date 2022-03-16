@@ -80,7 +80,7 @@ const FoodCard = () => {
                     //     </Card>
                     // </TinderCard>
                 <SwipeCard key={dish.name} onSwipe={onSwipe} onCardLeftScreen={() => onCardLeftScreen('card')}>
-                    <Card  sx={{ width: "95vw", height: "70vh", boxShadow: "2px 2px 20px 0px rgba(154, 159, 174, 1)" }}>
+                    <Card  sx={{ width: "95vw", height: "70vh", boxShadow: "2px 2px 10px 0px rgba(154, 159, 174, 1)"}}>
                         <CardMedia
                             component="img"
                             image={dish.url}
