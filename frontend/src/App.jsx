@@ -15,8 +15,8 @@ const App = () => {
 
     return (
         <Box>
-            <Header />
-            <Search />
+            {/* <Header />
+            <Search /> */}
             <FoodCard />
             <Navigation />
         </Box>
