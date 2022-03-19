@@ -11,14 +11,20 @@ import Search from "./Search"
 import FoodCard from "./FoodCard"
 import Navigation from "./Navigation"
 
+import Test from "./Test"
+
 const App = () => {
 
     return (
         <Box>
             {/* <Header />
-            <Search /> */}
+            <Search />
             <FoodCard />
-            <Navigation />
+            <Navigation /> */}
+
+            <Test />
+
+            
         </Box>
     )
 }

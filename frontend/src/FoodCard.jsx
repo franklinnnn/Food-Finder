@@ -48,50 +48,32 @@ const onCardLeftScreen = (myIdentifier) => {
 
 
 const FoodCard = () => {
-    // const food = [
-    //     {
-    //         name: "Pizza",
-    //         url: "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/delish-keto-pizza-073-1544039876.jpg",
-    //         distance: "2 miles away",
-    //         price: "$",
-    //     },
-    //     {
-    //         name: "Ramen",
-    //         url: "http://cdn.shopify.com/s/files/1/0111/1729/7722/articles/shutterstock_697241275_tonkotsu_ramen-landscape.jpg?v=1562316760",
-    //         distance: "4 miles away",
-    //         price: "$$",
-    //     },
-    //     {
-    //         name: "Steak",
-    //         url: "https://www.cookingclassy.com/wp-content/uploads/2019/07/steak-marinade-12.jpg",
-    //         distance: "12 miles away",
-    //         price: "$$$",
-    //     },
-    // ]
+    const food = [
+        {
+            name: "Pizza",
+            url: "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/delish-keto-pizza-073-1544039876.jpg",
+            distance: "2 miles away",
+            price: "$",
+        },
+        {
+            name: "Ramen",
+            url: "http://cdn.shopify.com/s/files/1/0111/1729/7722/articles/shutterstock_697241275_tonkotsu_ramen-landscape.jpg?v=1562316760",
+            distance: "4 miles away",
+            price: "$$",
+        },
+        {
+            name: "Steak",
+            url: "https://www.cookingclassy.com/wp-content/uploads/2019/07/steak-marinade-12.jpg",
+            distance: "12 miles away",
+            price: "$$$",
+        },
+    ]
 
-    //test
-    const [food, setItems] = useState(fetchFood)
 
-    const addItem = () => {
-        setItems([ ... food, {
-            id: food.length,
-            value: Math.floor(Math.random() * 10) +1
-        }
-
-        ])
-    }
     
     return (
         <Box sx={{ padding: 0, margin: 0 }}>
-            <div>
-                <button onClick={addItem}>Add a number</button>
-                <ul>
-                    {food.map(item=>(
-                        <li key={item.title}>{item.price}</li>
-                    ))}
-                </ul>
-            </div>
-
+            
             <FoodCardContainer>
                 {food.map((dish) => (
                     // <TinderCard className="swipe" key={dish.name}>
