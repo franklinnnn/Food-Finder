@@ -8,7 +8,7 @@ const NavigationContainer = styled.div`
     display: flex;
     justify-content: space-evenly;
     padding: 10px 0px 40px 0px;
-    background-color: cyan;
+    background-color: #f5f5f5;
     width: 100%;
     height: 5vh;
     bottom: 0;

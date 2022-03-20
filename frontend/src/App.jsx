@@ -12,7 +12,7 @@ import FoodCard from "./FoodCard"
 import Navigation from "./Navigation"
 
 import Test from "./Test"
-import FoodCard2 from "./FoodCard2"
+import FoodCard3 from "./FoodCard3"
 
 const App = () => {
 
@@ -20,7 +20,7 @@ const App = () => {
         <Box>
             <Header />
             <Search />
-            <FoodCard2 />
+            <FoodCard3 />
             <Navigation />
 
             {/* <Test />

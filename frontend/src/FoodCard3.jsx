@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react"
+import React, { useState, useEffect, useCallback, useMemo, useRef } from "react"
 import { Box, Card, CardMedia, Typography } from "@mui/material"
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined"
 import TinderCard from "react-tinder-card"
@@ -67,7 +67,46 @@ const FoodCard = () => {
         getFood()
             .catch(console.error)
     }, [getFood])
+
+    const db = food
+    const [currentIndex, setCurrentIndex] = useState(db.length - 1)
+    const [lastDirection, setLastDirection] = useState()
+
+    const currentIndexRef = useRef(currentIndex)
+
+    const childRefs = useMemo(
+        () => Array(db.length).fill(0).map((i) => React.createRef()), []
+    )
     
+    const updateCurrentIndex = (val) => {
+        setCurrentIndex(val)
+        currentIndexRef.current = val
+    }
+
+    const canGoBack = currentIndex < db.length - 1
+    const canSwipe = currentIndex >= 0
+
+    const swiped = (direction, nameToDelete, index) => {
+        setLastDirection(direction)
+        updateCurrentIndex(index - 1)
+    }
+
+    const outOfFrame = (name, idx) => {
+        console.log(`${name} (${idx}) left the screen!`, currentIndexRef.current)
+        currentIndexRef.current >= idx && childRefs[idx].current.restoreCard()
+        if(currentIndexRef.current <= 1){
+            console.log("adding more food", currentIndexRef.current)
+            getFood()
+        }
+    }
+
+    const goBack = async () => {
+        if(!canGoBack) return
+        const newIndex = currentIndex + 1
+        updateCurrentIndex(newIndex)
+        await childRefs[newIndex].current.restoreCard()
+    }
+
     const onSwipe = (direction) => {
         console.log("You swiped: " + direction)
     }
@@ -76,11 +115,16 @@ const FoodCard = () => {
         console.log(myIdentifier + " swiped")
     }
 
+   
     return (
         <Box sx={{ padding: 0, margin: 0 }}>
             <FoodCardContainer>
-                {food.map((dish) => (
-                <SwipeCard key={dish.id} onSwipe={onSwipe} onCardLeftScreen={() => onCardLeftScreen('card')}>
+                {db.map((dish, index) => (
+                <SwipeCard 
+                    key={dish.id} 
+                    onSwipe={(dir) => swiped(dir, dish.title, index)} 
+                    onCardLeftScreen={() => outOfFrame(dish.title, index)}
+                >
                     <Card  sx={{ width: "95vw", height: "70vh", boxShadow: "2px 2px 10px 0px rgba(154, 159, 174, 1)"}}>
                         <CardMedia
                             component="img"

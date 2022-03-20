@@ -3,6 +3,7 @@ import styled from "@emotion/styled"
 
 import { Paper, Grid, Box, Typography, IconButton, Button, Avatar } from "@mui/material"
 import { History as HistoryIcon, Person as PersonIcon } from "@mui/icons-material"
+import icon from "./images/icon01.png"
 
 const StyledAvatar = styled(Avatar)`
     width: 40px;
@@ -28,10 +29,13 @@ const NavButton = styled.div`
         box-shadow: box-shadow: -10px -10px 0px 0px rgba(154, 159, 174, 0.2);
 }
 `
+const LogoImage = styled.img`
+    width: 40px;
+`
 
 const Header = () => {
     return (
-        <Paper square sx={{ position: "fixed", top: 0, left: 0, width: "100%", height: "7vh", backgroundColor: "green" }}>
+        <Paper square sx={{ position: "fixed", top: 0, left: 0, width: "100%", height: "7vh", backgroundColor: "#f5f5f5" }}>
             <Grid
                 container
                 spacing={2}
@@ -48,7 +52,8 @@ const Header = () => {
                 </Grid>
                 <Grid item xs={6}>
                     <Box textAlign={"center"}>
-                        <Typography fontSize="xx-large">🍽️</Typography>
+                        {/* <Typography fontSize="xx-large">🍽️</Typography> */}
+                        <LogoImage src={icon} alt="icon" />
                     </Box>
                 </Grid>
                 <Grid item xs>

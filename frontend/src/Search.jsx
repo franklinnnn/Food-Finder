@@ -11,7 +11,7 @@ const SearchContainer = styled.div`
     display: flex;
     width: 100%;
     height: 50px;
-    background-color: blue;
+    background-color: #f5f5f5;
 `
 const SearchBar = styled.div`
     display: flex;
@@ -38,6 +38,7 @@ const SearchInput = styled.input`
     width: 100%;
     height: 100%;
     border: none;
+    font-family: 'Montserrat', sans-serif; 
 `
 const FilterIconWrapper = styled.div`
     height: 40px;

@@ -10,7 +10,7 @@ const FoodCardContainer = styled.div`
     justify-content: center;
     margin-top: 15vh;
     padding: 0;
-    background-color: red;
+    background-color: #f5f5f5;
 `
 const SwipeCard = styled(TinderCard)`
     position: absolute;
