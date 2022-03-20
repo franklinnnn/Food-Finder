@@ -3,7 +3,6 @@ import { Box, Card, CardMedia, Typography } from "@mui/material"
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined"
 import TinderCard from "react-tinder-card"
 import styled from "@emotion/styled"
-import fetchFood from "./fetchFood"
 
 const FoodCardContainer = styled.div`
     position: relative;    

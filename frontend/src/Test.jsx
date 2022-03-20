@@ -1,14 +1,6 @@
 import React, { useState, useEffect }from 'react'
 import fetchFood from "./fetchFood"
 
-// const [data, setData] = useState([])
-
-
-// useEffect(() => {
-//     fetch()
-// }, [])
-
-
 // class Test extends Component {
 
 //     constructor() {
@@ -44,11 +36,34 @@ import fetchFood from "./fetchFood"
 const Test = () =>{
     const[data, setData] = useState([])
 
-    // useEffect(() => {
-    //     fetchFood().then((data) => setData(data))
-    // })
+    useEffect(() => {
+        fetchFood().then((data) => setData(data))
+    })
 
-    // if(!data) return <div>loading... </div>
+    if(!data) return <div>loading... </div>
+
+    return(
+        <div>
+            <ul>
+                {data.map((dish) => (
+                    <div key={dish.id}>
+                        <ul>
+                            <li>{dish.title}</li>
+                        </ul>
+                    </div>
+                ))}
+            </ul>
+        </div>
+    )
+
+    // useEffect(() => {
+    //     const getFood = async () => {
+    //         const data = await fetchFood()
+    //         setData(data)
+    //     }
+        
+    //     getFood()
+    // }, [])
 
     // return(
     //     <div>
@@ -59,30 +74,6 @@ const Test = () =>{
     //         </ul>
     //     </div>
     // )
-
-    useEffect(() => {
-        const getFood = async () => {
-            const data = await fetchFood()
-            setData(data)
-        }
-
-        
-        getFood()
-
-        return () => {
-            
-        }
-    }, [])
-
-    return(
-        <div>
-            <ul>
-                {data.map((dish) => (
-                    <li key={dish.title}></li>
-                ))}
-            </ul>
-        </div>
-    )
 
 }
 

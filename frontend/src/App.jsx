@@ -12,17 +12,19 @@ import FoodCard from "./FoodCard"
 import Navigation from "./Navigation"
 
 import Test from "./Test"
+import FoodCard2 from "./FoodCard2"
 
 const App = () => {
 
     return (
         <Box>
-            {/* <Header />
+            <Header />
             <Search />
-            <FoodCard />
-            <Navigation /> */}
+            <FoodCard2 />
+            <Navigation />
 
-            <Test />
+            {/* <Test />
+            <FoodCard2 /> */}
 
             
         </Box>
