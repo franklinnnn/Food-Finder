@@ -1,46 +1,89 @@
-import React, {useState} from 'react'
-import { _listOfFood } from "./fetchFood.js"
+import React, { useState, useEffect }from 'react'
+import fetchFood from "./fetchFood"
 
-// export default class Test extends React.Component{
+// const [data, setData] = useState([])
 
-//   state = {
-//       loading: true,
-//       person: null,
-//   };
 
-//   async componentDidMount() {
-//       const url = "https://api.randomuser.me";
-//       const response = await fetch(url);
-//       const data = await response.json();
-//       this.setState({person: data.results[0], loading: false})
-//   }
+// useEffect(() => {
+//     fetch()
+// }, [])
 
-//   render(){
-//     return (
-//         <div>
-//             {this.state.loading || !this.state.person ? (
-//                 <div>loading...</div>
-//             ) : ( 
+
+// class Test extends Component {
+
+//     constructor() {
+//         super()
+//         this.state = { data: [] }
+//     }
+//     async getData() {
+//         const response = fetchFood()
+//         const result = await response.json()
+//         this.setState({ data: result })
+//         console.log(response)
+//     }
+
+//     async test(){
+//         const value = await fetchFood()
+//         console.log(value)
+//     }
+
+//     render() {
+//         let { data } = this.state
+//         return (
+//             <div>
+//                 Test
 //                 <div>
-//                     <div>{this.state.person.name.first}</div>
-//                     <img src={this.state.person.picture.large} />
+//                     { data }
 //                 </div>
-//             )}
-//         </div>
-//       );
-//   }  
-  
+//                 test 2
+//             </div>
+//         )
+//     }
 // }
 
-export default class Test extends React.Component{
-    render() {
-        return(
-            <div>
-                <h1>test</h1>
-                {_listOfFood.map((dish, index)=>{
-                    return <h1>{dish.title}</h1>
-                })}
-            </div>
-        )
-    }
+const Test = () =>{
+    const[data, setData] = useState([])
+
+    // useEffect(() => {
+    //     fetchFood().then((data) => setData(data))
+    // })
+
+    // if(!data) return <div>loading... </div>
+
+    // return(
+    //     <div>
+    //         <ul>
+    //             {data.map((dish) => (
+    //                 <li key={dish.title}></li>
+    //             ))}
+    //         </ul>
+    //     </div>
+    // )
+
+    useEffect(() => {
+        const getFood = async () => {
+            const data = await fetchFood()
+            setData(data)
+        }
+
+        
+        getFood()
+
+        return () => {
+            
+        }
+    }, [])
+
+    return(
+        <div>
+            <ul>
+                {data.map((dish) => (
+                    <li key={dish.title}></li>
+                ))}
+            </ul>
+        </div>
+    )
+
 }
+
+export default Test
