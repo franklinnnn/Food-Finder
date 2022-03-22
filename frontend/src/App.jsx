@@ -14,18 +14,21 @@ import Navigation from "./Navigation"
 import Test from "./Test"
 import FoodCard3 from "./FoodCard3"
 
+import FoodDetail from "./FoodDetail"
+
 const App = () => {
 
     return (
         <Box>
-            <Header />
+            {/* <Header />
             <Search />
             <FoodCard3 />
-            <Navigation />
+            <Navigation /> */}
 
             {/* <Test />
             <FoodCard2 /> */}
 
+            <FoodDetail />
             
         </Box>
     )

@@ -2,6 +2,7 @@ import React from "react"
 import styled from "@emotion/styled"
 import { Undo, Clear, Favorite, Info } from "@mui/icons-material"
 import IconButton from "@mui/material/IconButton"
+import FoodCard from "./FoodCard3"
 
 const NavigationContainer = styled.div`
     position: absolute;
