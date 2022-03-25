@@ -20,15 +20,15 @@ const App = () => {
 
     return (
         <Box>
-            <Header />
+            {/* <Header />
             <Search />
             <FoodCard3 />
             <Navigation />
 
-            {/* <Test />
+            <Test />
             <FoodCard2 /> */}
 
-            {/* <FoodDetail /> */}
+            <FoodDetail />
             
         </Box>
     )
