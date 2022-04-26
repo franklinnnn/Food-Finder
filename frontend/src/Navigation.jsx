@@ -1,20 +1,18 @@
-import React from "react"
+import PropTypes from "prop-types"
+import React, { useState } from "react"
 import styled from "@emotion/styled"
 import { Undo, Clear, Favorite, Info } from "@mui/icons-material"
 import IconButton from "@mui/material/IconButton"
-import FoodCard from "./FoodCard3"
 
 const NavigationContainer = styled.div`
-    position: absolute;
+    position: fixed;
     display: flex;
     justify-content: space-evenly;
-    padding: 10px 0px 40px 0px;
+    padding: 20px 0px 40px 0px;
     background-color: #f5f5f5;
     width: 100%;
-    height: 5vh;
     bottom: 0;
 `
-
 const NavigationButton = styled.div`
     width: 50px;
     height: 50px;
@@ -31,25 +29,34 @@ const NavigationButton = styled.div`
     }
 `
 
-const Navigation = () => {
+const Navigation = ({setSwipeDirection}) => { 
+    const [name , setName ] = useState(['undo', 'right', 'left']);
+
+    const swipe = (name) => {
+        setSwipeDirection(name)
+        console.log("set swipe direction to: " + name)
+    }
+
     return (
         <>
         <NavigationContainer>
             <NavigationButton>
-                <IconButton><Undo /></IconButton>
+                <IconButton onClick={() => swipe(name[0])}><Undo /></IconButton>
             </NavigationButton>
             <NavigationButton>
-                <IconButton><Clear /></IconButton>
+                <IconButton onClick={() => swipe(name[1])}><Favorite /></IconButton>
             </NavigationButton>
             <NavigationButton>
-                <IconButton><Favorite /></IconButton>
-            </NavigationButton>
-            <NavigationButton>
-                <IconButton><Info /></IconButton>
+                <IconButton onClick={() => swipe(name[2])}><Clear /></IconButton>
             </NavigationButton>
         </NavigationContainer>
         </>
     )
 }
+
+Navigation.propTypes = {
+  setSwipeDirection: PropTypes.func
+}
+
 
 export default Navigation

@@ -1,35 +1,19 @@
-import React, { useRef, useEffect, useState } from "react"
-
+import React, { useRef, useEffect } from "react"
 import { disableBodyScroll } from "body-scroll-lock"
+import { Box } from "@mui/material"
 
-import { Box, Paper, BottomNavigation, BottomNavigationAction } from "@mui/material"
-import { Restore, Favorite, LocationOn } from "@mui/icons-material"
-
-import "./App.css"
-import Header from "./Header"
-import Search from "./Search"
-import FoodCard from "./FoodCard"
-import Navigation from "./Navigation"
-
-import Test from "./Test"
-import FoodCard3 from "./FoodCard3"
-
-import FoodDetail from "./FoodDetail"
+import HomePage from "./HomePage"
 
 const App = () => {
+    const lock = useRef(null)
+
+    useEffect(() => {
+        disableBodyScroll(lock.current)
+    })
 
     return (
-        <Box>
-            {/* <Header />
-            <Search />
-            <FoodCard3 />
-            <Navigation />
-
-            <Test />
-            <FoodCard2 /> */}
-
-            <FoodDetail />
-            
+        <Box ref={lock}>
+            <HomePage />
         </Box>
     )
 }

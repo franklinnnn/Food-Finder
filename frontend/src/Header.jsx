@@ -1,73 +1,51 @@
+import PropTypes from "prop-types"
 import React from "react"
-import styled from "@emotion/styled"
 
-import { Paper, Grid, Box, Typography, IconButton, Button, Avatar } from "@mui/material"
+import { Paper, Grid, Box, Typography, IconButton } from "@mui/material"
 import { History as HistoryIcon, Person as PersonIcon } from "@mui/icons-material"
-import icon from "./images/icon01.png"
 
-const StyledAvatar = styled(Avatar)`
-    width: 40px;
-    height: 40px;    
-    border-radius: 10px;
-    box-shadow: 5px 5px 20px 0px rgba(154, 159, 174, 0.2);
-    &:active {
-        transform: translate(2px, 2px);
-    }
-`
-const NavButton = styled.div`
-    width: 40px;
-    height: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #fff;
-    border: none;
-    border-radius: 10px;
-    box-shadow: 5px 5px 20px 0px rgba(154, 159, 174, 0.2);
-    &:active {
-        transform: translate(2px, 2px);
-        box-shadow: box-shadow: -10px -10px 0px 0px rgba(154, 159, 174, 0.2);
-}
-`
-const LogoImage = styled.img`
-    width: 40px;
-`
-
-const Header = () => {
+const Header = ({setShowSideMenu}) => {
+  
     return (
-        <Paper square sx={{ position: "fixed", top: 0, left: 0, width: "100%", height: "7vh", backgroundColor: "#f5f5f5" }}>
-            <Grid
-                container
-                spacing={2}
-                justifyContent="center"
-                direction="row"
-                alignItems="center"
-            >
-                <Grid item xs>
-                    <Box textAlign={"left"}>
-                        <IconButton>
-                            <StyledAvatar src="https://i.imgur.com/R9Qt4Le.png" variant="rounded" />
-                        </IconButton>
-                    </Box>
-                </Grid>
-                <Grid item xs={6}>
-                    <Box textAlign={"center"}>
-                        {/* <Typography fontSize="xx-large">🍽️</Typography> */}
-                        <LogoImage src={icon} alt="icon" />
-                    </Box>
-                </Grid>
-                <Grid item xs>
-                    <Box textAlign={"right"}>
-                        <IconButton>
-                            <NavButton size="small">
+        <>
+            <Paper square sx={{ position: "fixed", top: 0, left: 0, width: "100%" }}>
+                <Grid
+                    container
+                    spacing={2}
+                    justifyContent="center"
+                    direction="row"
+                    alignItems="center"
+                >
+                    <Grid item xs>
+                        <Box textAlign={"left"}>
+                            <IconButton onClick={()=>setShowSideMenu(true)}>
+                                <PersonIcon sx={{ p: 1 }} fontSize="large" 
+                                />
+                            </IconButton>
+                        </Box>
+                    </Grid>
+                    <Grid item xs={6}>
+                        <Box textAlign={"center"}>
+                            <Typography fontSize="xx-large">🍽️</Typography>
+                        </Box>
+                    </Grid>
+                    <Grid item xs>
+                        <Box textAlign={"right"}>
+                            <IconButton>
                                 <HistoryIcon sx={{ p: 1 }} fontSize="large" />
-                            </NavButton>
-                        </IconButton>
-                    </Box>
+                            </IconButton>
+                        </Box>
+                    </Grid>
                 </Grid>
-            </Grid>
-        </Paper>
+            </Paper>
+           
+        </>
     )
+}
+
+Header.propTypes = {
+  setModalOpen: PropTypes.func,
+  setShowSideMenu: PropTypes.func
 }
 
 export default Header

@@ -1,13 +1,40 @@
+import PropTypes from "prop-types"
 import React from "react"
 import styled from "@emotion/styled"
 import SearchIcon from '@mui/icons-material/Search'
 import FilterListIcon from '@mui/icons-material/FilterList';
 import IconButton from "@mui/material/IconButton"
+import { motion } from "framer-motion"
 
+const Search = ({ setShowFilter }) => {
+    return (
+        <>
+            <SearchContainer>
+                <SearchBar>
+                    <SearchIconWrapper>
+                        <SearchIcon />
+                    </SearchIconWrapper>
+                    <SearchInput placeholder="Find food..." />
+                </SearchBar>
+                <FilterIconWrapper>
+                    <IconButton>
+                        <FilterListIcon onClick={() => setShowFilter(true)} />
+                    </IconButton>
+                </FilterIconWrapper>
+            </SearchContainer>
+
+        </>
+    )
+}
+
+Search.propTypes = {
+    setShowFilter: PropTypes.func
+}
 
 const SearchContainer = styled.div`
     position: absolute;
     top: 7vh;
+    left: 0;
     display: flex;
     width: 100%;
     height: 50px;
@@ -56,25 +83,5 @@ const FilterIconWrapper = styled.div`
         transform: translate(2px, 2px);
     }
 `
-
-const Search = () => {
-    return(
-        <>
-        <SearchContainer>
-            <SearchBar>
-                <SearchIconWrapper>
-                    <SearchIcon />
-                </SearchIconWrapper>
-                <SearchInput placeholder="Find food..." />
-            </SearchBar>
-            <FilterIconWrapper>
-              <IconButton>
-                <FilterListIcon />
-              </IconButton>
-            </FilterIconWrapper>
-        </SearchContainer>
-        </>
-    )
-}
 
 export default Search

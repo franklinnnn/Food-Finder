@@ -1,10 +1,12 @@
-import React, { useState, useEffect, useCallback } from "react"
-import { Box, Card, CardMedia, Typography } from "@mui/material"
-import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined"
+import React, { useState, useEffect, useCallback, useRef, useMemo } from "react"
+import PropTypes from "prop-types"
+import { Box } from "@mui/material"
+import { Undo, Clear, Favorite, Info } from "@mui/icons-material"
+import IconButton from "@mui/material/IconButton"
 import TinderCard from "react-tinder-card"
 import styled from "@emotion/styled"
 import fetchFood from "./fetchFood"
-import { ClassNames } from "@emotion/react"
+import FoodCard from "./FoodCard"
 
 const FoodCardContainer = styled.div`
     position: relative;    
@@ -18,90 +20,170 @@ const SwipeCard = styled(TinderCard)`
     position: absolute;
 `
 
-const FoodName = styled(Typography)`
-    color: #fff;
-    font-weight: bold;
-    font-family: 'Montserrat', sans-serif;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-`
-const FoodDistance = styled(FoodName)`
+const NavigationContainer = styled.div`
+    position: fixed;
     display: flex;
+    justify-content: space-evenly;
+    padding: 20px 0px 40px 0px;
+    background-color: cyan;
+    width: 100%;
+    bottom: 0;
+`
+const NavigationButton = styled.div`
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
     align-items: center;
-    font-weight: 400;
-`
-const FoodPrice = styled(FoodName)`
-    margin-left: 7px;
-    color: #009933;
-`
-
-const FoodCard = () => {
-    // const food = [
-    //     {
-    //         name: "Pizza",
-    //         url: "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/delish-keto-pizza-073-1544039876.jpg",
-    //         distance: "2 miles away",
-    //         price: "$",
-    //     },
-    //     {
-    //         name: "Ramen",
-    //         url: "http://cdn.shopify.com/s/files/1/0111/1729/7722/articles/shutterstock_697241275_tonkotsu_ramen-landscape.jpg?v=1562316760",
-    //         distance: "4 miles away",
-    //         price: "$$",
-    //     },
-    //     {
-    //         name: "Steak",
-    //         url: "https://www.cookingclassy.com/wp-content/uploads/2019/07/steak-marinade-12.jpg",
-    //         distance: "12 miles away",
-    //         price: "$$$",
-    //     },
-    // ]
-
-    const [food, setFood] = useState([])
-
-    const getFood = useCallback(async () => {
-        const food = await fetchFood()
-        setFood(food)
-    }, [])
-
-    useEffect(() => {
-        getFood()
-            .catch(console.error)
-    }, [getFood])
-    
-    const onSwipe = (direction) => {
-        console.log("You swiped: " + direction)
+    background-color: #fff;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 5px 5px 20px 0px rgba(154, 159, 174, 0.2);
+    &:active {
+        transform: translate(5px, 5px);
+        box-shadow: box-shadow: -10px -10px 0px 0px rgba(154, 159, 174, 0.2);
     }
-    
-    const onCardLeftScreen = (myIdentifier) => {
-        console.log(myIdentifier + " swiped")
-    }
+`
 
-    return (
-        <Box sx={{ padding: 0, margin: 0 }}>
-            <FoodCardContainer>
-                {food.map((dish) => (
-                <SwipeCard key={dish.id} onSwipe={onSwipe} onCardLeftScreen={() => onCardLeftScreen('card')}>
-                    <Card  sx={{ width: "95vw", height: "70vh", boxShadow: "2px 2px 10px 0px rgba(154, 159, 174, 1)"}}>
-                        <CardMedia
-                            component="img"
-                            image={dish.img}
-                            width="100%"
-                            height="100%"
-                        />
-                        <div style={{ 
-                                position: "absolute", bottom: 20, margin: "10px"
-                        }}>
-                            <FoodName variant="h3">{dish.title}</FoodName>
-                            <FoodDistance variant="subtitle1"><LocationOnOutlinedIcon /> {dish.distance}</FoodDistance>
-                            <FoodPrice>{dish.price}</FoodPrice>
-                        </div>
-                    </Card>
-                    
-                </SwipeCard>
-                ))}
-            </FoodCardContainer>
+function FoodCard2(props) {
+  const [food, setFood] = useState([])
+  const [currentIndex, setCurrentIndex] = useState(0)
+  const [lastDirection, setLastDirection] = useState()
+
+  const currentIndexRef = useRef(currentIndex)
+
+  const getFood = useCallback(async () => {
+    const _food = await fetchFood()
+    setFood(_food)
+    updateCurrentIndex(_food.length - 1)
+  }, [])
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition((geopos) => {
+      const lat = geopos.coords.latitude
+      const long = geopos.coords.longitude
+      getFood(lat, long).catch(console.error)
+    })
+  }, [])
+
+  const childRefs = useMemo(
+    () =>
+      Array(getFood.length)
+        .fill(0)
+        .map((i) => React.createRef()),
+    []
+  )
+
+  const updateCurrentIndex = (val) => {
+    setCurrentIndex(val)
+    currentIndexRef.current = val
+  }
+
+  const canGoBack = currentIndex < currentIndex - 1
+  const canSwipe = currentIndex >= 0
+
+  const swiped = (dish, direction, index) => {
+    setLastDirection(direction)
+    updateCurrentIndex(index - 1)
+    if (direction === "right") {
+      props.swipeRight(dish)
+    }
+  }
+
+  const outOfFrame = (idx) => {
+    updateCurrentIndex(idx)
+    if (idx < 1) {
+      navigator.geolocation.getCurrentPosition((geopos) => {
+        const lat = geopos.coords.latitude
+        const long = geopos.coords.longitude
+        getFood(lat, long).catch(console.error)
+      })
+    }
+    currentIndexRef.current >= idx && childRefs[idx].current.restoreCard()
+  }
+
+  const swipe = async (dir) => {
+    if (canSwipe && currentIndex < food.length) {
+      await childRefs[currentIndex].current.swipe(dir)
+    }
+  }
+
+  const goBack = async () => {
+    if (!canGoBack) return
+    const newIndex = currentIndex + 1
+    updateCurrentIndex(newIndex)
+    await childRefs[newIndex].current.restoreCard()
+  }
+
+  return (
+    <Box>
+      <FoodCardContainer>
+        <Box sx={{ display: "flex", justifyContent: "center" }}>
+          {food.map((dish, index) => (
+            <SwipeCard
+              ref={childRefs[index]}
+              key={dish.img}
+              onSwipe={(dir) => swiped(dish, dir, index)}
+              onCardLeftScreen={() => outOfFrame(index)}
+            >
+              <FoodCard
+                img={dish.img}
+                title={dish.title}
+                distance={dish.distance}
+                price={dish.price}
+              />
+            </SwipeCard>
+          ))}
         </Box>
-    )
+
+      </FoodCardContainer>
+
+      <link
+        href='https://fonts.googleapis.com/css?family=Damion&display=swap'
+        rel='stylesheet'
+      />
+      <link
+        href='https://fonts.googleapis.com/css?family=Alatsi&display=swap'
+        rel='stylesheet'
+      />
+      <h1>React Tinder Card</h1>
+      <div className='cardContainer'>
+        {food.map((character, index) => (
+          <TinderCard
+            ref={childRefs[index]}
+            className='swipe'
+            key={character.name}
+            onSwipe={(dir) => swiped(dir, index)}
+            onCardLeftScreen={() => outOfFrame(index)}
+          >
+            <div
+              style={{ backgroundImage: 'url(' + character.url + ')' }}
+              className='card'
+            >
+              <h3>{character.name}</h3>
+            </div>
+          </TinderCard>
+        ))}
+      </div>
+
+      <NavigationContainer>
+        <NavigationButton>
+          <IconButton onClick={() => goBack()}><Undo /></IconButton>
+        </NavigationButton>
+        <NavigationButton>
+          <IconButton onClick={() => swipe("right")}><Favorite /></IconButton>
+        </NavigationButton>
+        <NavigationButton>
+          <IconButton onClick={() => swipe("left")}><Clear /></IconButton>
+        </NavigationButton>
+      </NavigationContainer>
+    </Box>
+  )
 }
 
-export default FoodCard
+FoodCard2.propTypes = {
+  swipeRight: PropTypes.func,
+}
+
+
+export default FoodCard2
